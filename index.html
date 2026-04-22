@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vacaciones PWA</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d6efd">
+
+<style>
+body { font-family: Arial; padding: 20px; background:#f5f5f5;}
+.card { background:white; padding:20px; border-radius:10px; max-width:400px; margin:auto; }
+input { width:100%; padding:8px; margin:5px 0;}
+button { width:100%; padding:10px; background:#0d6efd; color:white; border:none; }
+h2 { text-align:center; }
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+<h2>Vacaciones 2026</h2>
+
+<label>Vacaciones anuales</label> <input id="base" value="22">
+
+<label>Días Nubeado (horas)</label> <input id="horas" value="22">
+
+<label>Días vacaciones disfrutados</label> <input id="semana" value="5">
+
+<label>Días jornada reducida</label> <input id="dias" value="39">
+
+<label>Reducción diaria (h)</label> <input id="red" value="1.5">
+
+<button onclick="calc()">Calcular</button>
+
+<h3 id="res"></h3>
+</div>
+
+<script>
+function calc(){
+ let base = parseFloat(document.getElementById('base').value);
+ let horas = parseFloat(document.getElementById('horas').value);
+ let semana = parseFloat(document.getElementById('semana').value);
+ let dias = parseFloat(document.getElementById('dias').value);
+ let red = parseFloat(document.getElementById('red').value);
+
+ let prev = horas/8;
+ let consumido = prev + semana;
+ let horasRed = dias * red;
+ let diasRed = horasRed/8;
+
+ let restante = base - consumido - diasRed;
+
+ document.getElementById('res').innerText =
+   "Te quedan: " + restante.toFixed(4) + " días";
+}
+
+// Service Worker
+if ('serviceWorker' in navigator) {
+ navigator.serviceWorker.register('sw.js');
+}
+</script>
+
+</body>
+</html>
