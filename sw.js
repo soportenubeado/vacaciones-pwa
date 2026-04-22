@@ -1,4 +1,4 @@
-const CACHE = "vacaciones-v1";
+const CACHE = "vacaciones-v2";
 
 self.addEventListener("install", e => {
   e.waitUntil(
